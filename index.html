@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Reto de las 4 semanas · VIVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef4ef;--card:#fff;--ink:#24352f;--soft:#5a6b64;
+    --teal:#0f6e64;--teal-deep:#0b4f48;--green:#2e9e5b;--amber:#e0982f;--red:#e0553f;--gold:#dca24e;--blue:#2f6fb0;
+    --line:#e2ebe4;--shadow:0 18px 50px rgba(15,78,72,.14);--r:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Nunito',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--ink);min-height:100vh;display:block;padding:20px 16px 56px;-webkit-font-smoothing:antialiased;}
+  .wrap{width:100%;max-width:580px;margin:0 auto}
+  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+  .screen{display:none}.screen.active{display:block}
+
+  .hero{padding:40px 30px 30px;text-align:center;background:linear-gradient(160deg,#0f6e64,#0b4f48);color:#fff}
+  .hero .ic{width:76px;height:76px;margin:0 auto 16px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:36px}
+  .kicker{font-family:'Fredoka';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px;opacity:.85;margin-bottom:10px}
+  .hero h1{font-family:'Fredoka';font-weight:700;font-size:26px;line-height:1.1;margin-bottom:12px}
+  .hero p{font-size:15.5px;line-height:1.5;opacity:.94;max-width:40ch;margin:0 auto}
+  .welcome-body{padding:24px 30px 32px}
+  .pasos{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+  .paso{display:flex;align-items:flex-start;gap:13px;font-size:14.5px;line-height:1.4}
+  .paso .pn{width:30px;height:30px;border-radius:50%;background:#eaf4ef;color:var(--teal-deep);display:flex;align-items:center;justify-content:center;font-family:'Fredoka';font-weight:700;font-size:15px;flex:none}
+  .paso b{font-family:'Fredoka';font-weight:600}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Fredoka';font-weight:600;font-size:18px;background:var(--gold);color:#4a2f00;border:none;border-radius:15px;padding:16px 26px;width:100%;cursor:pointer;box-shadow:0 8px 20px rgba(220,162,78,.35);transition:transform .12s,box-shadow .12s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(220,162,78,.45)}
+  .btn:active{transform:translateY(0)}
+  .btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+  .btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+  .btn.sec{background:#eef4ef;color:var(--teal-deep);box-shadow:none;border:1px solid var(--line);font-size:15px;padding:13px}
+  .btn.sec:hover{background:#e6efe8}
+  .note{text-align:center;font-size:12.5px;color:var(--soft);margin-top:13px;line-height:1.4}
+  .idea{background:#f3f8f4;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.5;margin-bottom:20px}
+  .idea b{color:var(--teal-deep)}
+
+  .calc-head{padding:22px 24px 16px;background:linear-gradient(160deg,#0f6e64,#0b4f48);color:#fff}
+  .calc-head h2{font-family:'Fredoka';font-weight:600;font-size:19px}
+  .calc-head p{font-size:13px;opacity:.9;margin-top:5px;line-height:1.4}
+  .body{padding:22px 24px 26px}
+  .step-label{font-family:'Fredoka';font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:4px 0 12px;display:flex;align-items:center;gap:8px}
+  .step-label.sp{margin-top:22px}
+  .step-label .n{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+  .step-label .hintx{font-weight:600;font-size:11px;color:var(--soft);text-transform:none;letter-spacing:0;margin-left:auto;opacity:.8}
+
+  .rubro{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:13px;padding:9px 13px;margin-bottom:8px}
+  .rubro.ing{border-left:4px solid var(--green)}
+  .rubro .emo{font-size:21px;flex:none;width:26px;text-align:center}
+  .rubro .nm{flex:1;min-width:0;font-family:'Fredoka';font-weight:600;font-size:14.5px}
+  .rubro .nm small{display:block;font-family:'Nunito';font-weight:700;font-size:11.5px;color:var(--soft);margin-top:1px}
+  .rubro .in{display:flex;align-items:center;gap:3px;background:#f4f7f4;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px}
+  .rubro .in span{font-family:'Fredoka';font-weight:700;color:var(--soft);font-size:15px}
+  .rubro .in input{width:80px;border:none;background:transparent;font-family:'Fredoka';font-weight:700;font-size:15px;color:var(--ink);outline:none;text-align:right}
+  .rubro .in:focus-within{border-color:var(--teal)}
+
+  .total{background:#fbf3e7;border:1px solid #f0dfbf;border-radius:14px;padding:13px 18px;display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px}
+  .total .lbl{font-family:'Fredoka';font-weight:600;font-size:15px;color:#9a6a12}
+  .total .amt{font-family:'Fredoka';font-weight:700;font-size:23px;color:#9a6a12}
+
+  .plan{border-radius:16px;padding:22px 20px;text-align:center;margin:4px 0 16px;background:linear-gradient(135deg,#0f6e64,#0b4f48);color:#fff}
+  .plan .lead{font-size:14px;opacity:.92;margin-bottom:4px}
+  .plan .big{font-family:'Fredoka';font-weight:700;font-size:38px;line-height:1.05}
+  .plan .big small{font-size:16px;font-weight:600;opacity:.85}
+  .plan .alt{font-size:14px;opacity:.95;margin-top:7px}
+  .desglose{border-top:1px solid rgba(255,255,255,.2);margin-top:14px;padding-top:12px;text-align:left}
+  .desglose .d{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;padding:3px 0}
+  .desglose .d .dl{opacity:.9}
+  .desglose .d .dv{font-family:'Fredoka';font-weight:700}
+  .desglose .d.sumrow{border-top:1px dashed rgba(255,255,255,.3);margin-top:6px;padding-top:8px}
+  .desglose .d.sumrow .dl,.desglose .d.sumrow .dv{font-family:'Fredoka';font-weight:700;font-size:15px}
+  .plan.wait{background:#f3f6f3;color:var(--soft);border:1px dashed #cfdcd4}
+  .plan.wait .big{color:var(--teal-deep);font-size:19px}
+  .plan.allcov{background:linear-gradient(135deg,#2e9e5b,#217a45)}
+  .sema{display:flex;align-items:flex-start;gap:10px;border-radius:12px;padding:12px 14px;margin:0 0 16px;font-size:13.5px;line-height:1.4}
+  .sema .dot{width:12px;height:12px;border-radius:50%;flex:none;margin-top:3px}
+  .sema.v{background:#e7f6ec;border:1px solid #bfe6cd;color:#1f7a44}.sema.v .dot{background:var(--green)}
+  .sema.a{background:#fbf1de;border:1px solid #f0dfbf;color:#9a6a12}.sema.a .dot{background:var(--amber)}
+  .sema b{font-family:'Fredoka';font-weight:600}
+  .adjust{background:#f6f7f5;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+  .adjust .ajt{font-family:'Fredoka';font-weight:600;font-size:12.5px;color:var(--soft);margin-bottom:9px}
+  .aj{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .aj:last-child{margin-bottom:0}
+  .aj .ajl{flex:1;font-size:13px;color:var(--ink);font-weight:700}
+  .aj .ajin{display:flex;align-items:center;gap:2px;background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:5px 10px}
+  .aj .ajin input{width:38px;border:none;background:transparent;font-family:'Fredoka';font-weight:700;font-size:15px;color:var(--ink);outline:none;text-align:right}
+  .aj .ajin span{font-family:'Fredoka';font-weight:700;color:var(--soft);font-size:14px}
+  .aj .ajin:focus-within{border-color:var(--teal)}
+
+  /* dashboard */
+  .dash-top{background:linear-gradient(160deg,#0f6e64,#0b4f48);color:#fff;padding:22px 24px 24px}
+  .dash-top .dk{font-family:'Fredoka';font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px;opacity:.82;margin-bottom:12px;display:flex;align-items:center}
+  .dash-top .dk a{margin-left:auto;color:#bfe0d8;text-decoration:underline;cursor:pointer;text-transform:none;letter-spacing:0;font-size:12px}
+  .acum{text-align:center;margin-bottom:6px}
+  .acum .av{font-family:'Fredoka';font-weight:700;font-size:38px;line-height:1}
+  .acum .am{font-size:13.5px;opacity:.9;margin-top:4px}
+  .pbar{height:11px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin:12px 0 6px}
+  .pfill{height:100%;background:linear-gradient(90deg,var(--gold),#f0c070);border-radius:99px;width:0;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .big-note{text-align:center;font-size:12.5px;opacity:.9;margin-top:4px}
+  .dash-stats{display:flex;gap:10px;margin-top:14px}
+  .ds{flex:1;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px;text-align:center}
+  .ds .dv{font-family:'Fredoka';font-weight:700;font-size:18px}
+  .ds .dl{font-size:11px;opacity:.88;margin-top:2px;line-height:1.2}
+
+  .weeks{padding:20px 20px 10px}
+  .wk{border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:13px}
+  .wk.done{border-color:#cdebd6;background:#fafdfb}
+  .wk .wleft{flex:1;min-width:0}
+  .wk .wn{font-family:'Fredoka';font-weight:700;font-size:15.5px;color:var(--ink)}
+  .wk .wmeta{font-size:12.5px;color:var(--soft);margin-top:2px}
+  .wk .wres{font-size:12.5px;font-weight:700;margin-top:4px;display:none}
+  .wk .wres.show{display:block}
+  .wk .wres.ok{color:var(--green)}.wk .wres.no{color:var(--amber)}
+  .wk .win{display:flex;align-items:center;gap:3px;background:#eef7f1;border:1.5px solid #cdebd6;border-radius:11px;padding:9px 11px;flex:none}
+  .wk .win span{font-family:'Fredoka';font-weight:700;color:var(--green);font-size:15px}
+  .wk .win input{width:72px;border:none;background:transparent;font-family:'Fredoka';font-weight:700;font-size:16px;color:var(--ink);outline:none;text-align:right}
+  .wk .win:focus-within{border-color:var(--teal)}
+
+  .dash-foot{padding:4px 20px 24px}
+  .tips{background:#f3f8f4;border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:14px}
+  .tips h3{font-family:'Fredoka';font-weight:600;font-size:14.5px;color:var(--teal-deep);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .tips ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .tips li{display:flex;gap:9px;font-size:13.5px;line-height:1.4}.tips li .mk{color:var(--teal);font-weight:800;flex:none}
+  .closing{text-align:center;font-family:'Fredoka';font-weight:500;font-size:15px;color:var(--teal-deep);line-height:1.4;margin:16px 6px 14px}
+  .brand{text-align:center;margin-top:12px;font-family:'Fredoka';font-weight:600;font-size:12.5px;color:var(--soft)}
+  .brand span{color:var(--teal)}
+  .saved{text-align:center;font-size:12px;color:var(--soft);margin-top:10px}
+  .saved b{color:var(--green)}
+  @media(max-width:430px){.hero{padding:34px 20px 26px}.hero h1{font-size:23px}.welcome-body,.body,.weeks,.dash-foot{padding-left:16px;padding-right:16px}.calc-head,.dash-top{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+
+  <!-- WELCOME -->
+  <section id="welcome" class="screen active">
+    <div class="hero">
+      <div class="ic">🏆</div>
+      <div class="kicker">Educación financiera · VIVE</div>
+      <h1>El Reto de las 4 semanas</h1>
+      <p>VIVE tus resultados: arma tu plan, aparta tu meta cada semana y mira crecer tu fondo para diciembre.</p>
+    </div>
+    <div class="welcome-body">
+      <div class="idea">La teoría no cambia nada: <b>la acción sí</b>. Este reto te lleva de la mano 4 semanas para que llegues al fin de año con tu dinero listo… y sin deudas.</div>
+      <div class="pasos">
+        <div class="paso"><span class="pn">1</span><span><b>Arma tu plan:</b> tus gastos de fin de año y tu aguinaldo. Te dice cuánto apartar por semana.</span></div>
+        <div class="paso"><span class="pn">2</span><span><b>Cada semana</b> anotas lo que apartaste. Dos minutos, y tu avance se guarda solo.</span></div>
+        <div class="paso"><span class="pn">3</span><span><b>Mira tu fondo crecer</b> hacia tu meta. Al llegar al Buen Fin, compras con dinero, no a crédito.</span></div>
+      </div>
+      <button class="btn" onclick="app.goPlan()">🔥 Acepto el reto →</button>
+      <p class="note">Dura 4 semanas. Tu avance se guarda en tu celular — nada se envía a ningún lado.</p>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan" class="screen">
+    <div class="calc-head"><h2>🎯 Paso 1 · Arma tu plan</h2><p>Anota lo que gastarás y con qué cuentas. Esto define tu meta del reto.</p></div>
+    <div class="body" id="planbody"></div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dash" class="screen">
+    <div class="dash-top">
+      <div class="dk"><span>🏆 Mi reto · semana <b id="curWeek">1</b> de 4</span> <a onclick="app.goPlan()">editar plan</a></div>
+      <div class="acum">
+        <div class="av" id="acumVal">$0</div>
+        <div class="am">apartados · meta del reto: <span id="metaRetoVal">$0</span></div>
+      </div>
+      <div class="pbar"><div class="pfill" id="acumBar"></div></div>
+      <div class="big-note" id="bigNote"></div>
+      <div class="dash-stats">
+        <div class="ds"><div class="dv" id="metaSemVal">$0</div><div class="dl">tu meta por semana</div></div>
+        <div class="ds"><div class="dv" id="cumpVal">0/4</div><div class="dl">semanas cumplidas</div></div>
+        <div class="ds"><div class="dv" id="rachaVal">0</div><div class="dl">racha 🔥</div></div>
+      </div>
+    </div>
+    <div class="weeks" id="weeks"></div>
+    <div class="dash-foot">
+      <div class="tips"><h3>💡 Para no abandonar el reto</h3><ul>
+        <li><span class="mk">•</span><span>Aparta tu meta <b>el día que cobras</b>, antes de gastar. Es la regla de oro.</span></li>
+        <li><span class="mk">•</span><span>Guárdalo en una <b>cuenta aparte</b>, donde no lo gastes sin querer.</span></li>
+        <li><span class="mk">•</span><span>¿Una semana apartaste menos? No te rindas: compénsalo la siguiente. El reto es avanzar.</span></li>
+      </ul></div>
+      <div class="closing" id="closing"></div>
+      <button class="btn sec" onclick="app.reiniciar()">↺ Reiniciar mi reto</button>
+      <div class="saved">💾 Tu avance se guarda solo, <b>en este celular</b></div>
+      <div class="brand">Programa <span>VIVE</span> · Educación financiera</div>
+    </div>
+  </section>
+
+</div></div>
+
+<script>
+const KEY='reto-finano-vive-v1';
+const RUBROS=[
+  {k:'buenfin', emo:'🛍️', nm:'Compras del Buen Fin'},
+  {k:'regalos', emo:'🎁', nm:'Regalos e intercambios'},
+  {k:'navidad', emo:'🎄', nm:'Cena de Navidad'},
+  {k:'anonuevo', emo:'🥂', nm:'Cena de Año Nuevo'},
+  {k:'posadas', emo:'🥳', nm:'Posadas y fiestas'},
+  {k:'ropa', emo:'👕', nm:'Ropa para estrenar'},
+  {k:'reyes', emo:'🧸', nm:'Reyes Magos'},
+  {k:'adornos', emo:'✨', nm:'Adornos y árbol'},
+  {k:'otros', emo:'➕', nm:'Otros (viajes, propinas…)'},
+];
+const fmt=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
+const peso=n=>fmt.format(Math.max(0,Math.round(n)));
+const onlyNum=s=>{const v=parseInt(String(s).replace(/[^\d]/g,''),10);return isNaN(v)?0:v;};
+function fechas(){
+  const hoy=new Date();
+  let obj=new Date(hoy.getFullYear(),11,24);
+  if(hoy>obj) obj=new Date(hoy.getFullYear()+1,11,24);
+  const dias=Math.max(1,Math.ceil((obj-hoy)/(1000*60*60*24)));
+  return {dias, semanas:Math.max(4,Math.round(dias/7)), quincenas:Math.max(2,Math.round(dias/15))};
+}
+function computePlan(plan){
+  let total=0; RUBROS.forEach(r=>total+=(plan.montos[r.k]||0));
+  const f=fechas();
+  const pctA=(plan.pctA!=null?plan.pctA:50);
+  const pctI=(plan.pctI!=null?plan.pctI:30);
+  const aporteAgui=Math.round((plan.agui||0)*pctA/100);
+  const faltante=Math.max(0, total-aporteAgui);
+  const metaSemanal=Math.round(faltante/f.semanas);
+  const metaQuincena=metaSemanal*2; // una quincena = 2 semanas, para que cuadre con la meta semanal
+  const metaReto=metaSemanal*4;
+  const topeQuincena=Math.round((plan.ingQ||0)*pctI/100);
+  const pctDeIngreso=(plan.ingQ>0)?Math.round(metaQuincena/plan.ingQ*100):null;
+  const sostenible=(plan.ingQ>0 && faltante>0)?(metaQuincena<=topeQuincena):null;
+  return {total, aporteAgui, faltante, f, metaSemanal, metaQuincena, metaReto, topeQuincena, pctA, pctI, pctDeIngreso, sostenible};
+}
+
+const app={
+  st:null, tmp:{montos:{},ingQ:0,agui:0,pctA:50,pctI:30},
+
+  load(){ try{const raw=localStorage.getItem(KEY); if(raw) this.st=JSON.parse(raw);}catch(e){this.st=null;}
+    if(this.st&&!this.st.plan) this.st=null; },
+  save(){ try{localStorage.setItem(KEY,JSON.stringify(this.st));}catch(e){} },
+  show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});},
+
+  init(){
+    this.load();
+    if(this.st && this.st.started){ this.tmp=this.planToTmp(this.st.plan); this.renderDash(); this.show('dash'); }
+    else { this.show('welcome'); }
+  },
+  planToTmp(p){ return {montos:Object.assign({},p.montos),ingQ:p.ingQ||0,agui:p.agui||0,pctA:(p.pctA!=null?p.pctA:50),pctI:(p.pctI!=null?p.pctI:30)}; },
+  goPlan(){ if(this.st){this.tmp=this.planToTmp(this.st.plan);} this.renderPlan(); this.show('plan'); },
+
+  renderPlan(){
+    const b=document.getElementById('planbody');
+    let total=0; RUBROS.forEach(r=>total+=(this.tmp.montos[r.k]||0));
+    const plan={montos:this.tmp.montos, ingQ:this.tmp.ingQ, agui:this.tmp.agui, pctA:this.tmp.pctA, pctI:this.tmp.pctI};
+    const cp=computePlan(plan);
+    b.innerHTML=
+      '<div class="step-label"><span class="n">1</span> ¿Qué vas a gastar estas fiestas?</div>'+
+      RUBROS.map(r=>(
+        '<div class="rubro"><span class="emo">'+r.emo+'</span><span class="nm">'+r.nm+'</span>'+
+        '<span class="in"><span>$</span><input id="m-'+r.k+'" inputmode="numeric" placeholder="0" value="'+(this.tmp.montos[r.k]?this.tmp.montos[r.k].toLocaleString('es-MX'):'')+'"></span></div>'
+      )).join('')+
+      '<div class="total"><span class="lbl">🎁 Tu fin de año cuesta</span><span class="amt">'+peso(total)+'</span></div>'+
+      '<div class="step-label sp"><span class="n">2</span> ¿Con qué cuentas? <span class="hintx">opcional</span></div>'+
+      '<div class="rubro ing"><span class="emo">💵</span><span class="nm">Tu ingreso por quincena<small>Lo que recibes cada 15 días</small></span>'+
+        '<span class="in"><span>$</span><input id="ing-q" inputmode="numeric" placeholder="0" value="'+(this.tmp.ingQ?this.tmp.ingQ.toLocaleString('es-MX'):'')+'"></span></div>'+
+      '<div class="rubro ing"><span class="emo">🎉</span><span class="nm">Tu aguinaldo estimado<small>Llega en diciembre (antes del 20)</small></span>'+
+        '<span class="in"><span>$</span><input id="ing-a" inputmode="numeric" placeholder="0" value="'+(this.tmp.agui?this.tmp.agui.toLocaleString('es-MX'):'')+'"></span></div>'+
+      '<div class="adjust"><div class="ajt">⚙️ Cuánto destinas a tus gastos de fin de año</div>'+
+        '<div class="aj"><span class="ajl">🎉 De mi aguinaldo</span><span class="ajin"><input id="pct-a" inputmode="numeric" value="'+this.tmp.pctA+'"><span>%</span></span></div>'+
+        '<div class="aj"><span class="ajl">💵 Tope de mi quincena</span><span class="ajin"><input id="pct-i" inputmode="numeric" value="'+this.tmp.pctI+'"><span>%</span></span></div>'+
+      '</div>'+
+      '<div class="step-label sp"><span class="n">3</span> Tu meta del reto</div>'+
+      '<div id="plancard-holder">'+this.planInner(cp,total)+'</div>'+
+      '<button class="btn" id="startBtn" '+(total>0?'':'disabled')+' onclick="app.startReto()">🔥 Empezar mi reto de 4 semanas →</button>'+
+      (this.st&&this.st.started?'<button class="btn sec" style="margin-top:10px" onclick="app.show(\'dash\')">← Volver a mi reto</button>':'');
+
+    RUBROS.forEach(r=>{
+      document.getElementById('m-'+r.k).addEventListener('input',e=>{
+        const v=onlyNum(e.target.value); e.target.value=v?v.toLocaleString('es-MX'):'';
+        this.tmp.montos[r.k]=v; this.renderPlanLight();
+      });
+    });
+    document.getElementById('ing-q').addEventListener('input',e=>{
+      const v=onlyNum(e.target.value); e.target.value=v?v.toLocaleString('es-MX'):'';
+      this.tmp.ingQ=v; this.renderPlanLight();
+    });
+    document.getElementById('ing-a').addEventListener('input',e=>{
+      const v=onlyNum(e.target.value); e.target.value=v?v.toLocaleString('es-MX'):'';
+      this.tmp.agui=v; this.renderPlanLight();
+    });
+    document.getElementById('pct-a').addEventListener('input',e=>{
+      let v=onlyNum(e.target.value); if(v>100)v=100; e.target.value=v||'';
+      this.tmp.pctA=v; this.renderPlanLight();
+    });
+    document.getElementById('pct-i').addEventListener('input',e=>{
+      let v=onlyNum(e.target.value); if(v>100)v=100; e.target.value=v||'';
+      this.tmp.pctI=v; this.renderPlanLight();
+    });
+  },
+  renderPlanLight(){ // recompute plan card + total sin re-render de inputs
+    let total=0; RUBROS.forEach(r=>total+=(this.tmp.montos[r.k]||0));
+    document.querySelector('.total .amt').textContent=peso(total);
+    const cp=computePlan({montos:this.tmp.montos,ingQ:this.tmp.ingQ,agui:this.tmp.agui,pctA:this.tmp.pctA,pctI:this.tmp.pctI});
+    const holder=document.getElementById('plancard-holder');
+    if(holder) holder.innerHTML=this.planInner(cp,total);
+    const btn=document.getElementById('startBtn'); if(btn) btn.disabled=total<=0;
+  },
+  planInner(cp,total){
+    if(total<=0) return '<div class="plan wait"><div class="big">Anota arriba lo que piensas gastar</div><div class="lead" style="margin-top:6px">y te digo cuánto apartar cada semana.</div></div>';
+    if(cp.faltante<=0){
+      return '<div class="plan allcov"><div class="lead">Con tu aguinaldo…</div><div class="big">¡Te alcanza! 🎉</div>'+
+        '<div class="alt">El '+cp.pctA+'% de tu aguinaldo cubre todo. Aun así, haz el reto: aparta algo cada semana y empieza enero con colchón.</div></div>';
+    }
+    let h='<div class="plan"><div class="lead">Tu meta: apartar</div>'+
+      '<div class="big">'+peso(cp.metaSemanal)+'<small> por semana</small></div>'+
+      '<div class="alt">durante unas '+cp.f.semanas+' semanas, hasta Navidad</div>'+
+      '<div class="desglose">'+
+        '<div class="d"><span class="dl">Tu fin de año cuesta</span><span class="dv">'+peso(total)+'</span></div>'+
+        (cp.aporteAgui>0?'<div class="d"><span class="dl">Tu aguinaldo ('+cp.pctA+'%)</span><span class="dv">− '+peso(cp.aporteAgui)+'</span></div>':'')+
+        '<div class="d sumrow"><span class="dl">Te toca juntar</span><span class="dv">'+peso(cp.faltante)+'</span></div>'+
+      '</div></div>';
+    if(cp.sostenible!==null){
+      if(cp.sostenible){
+        h+='<div class="sema v"><span class="dot"></span><span>✓ <b>Sostenible:</b> son '+peso(cp.metaQuincena)+' por quincena, el '+cp.pctDeIngreso+'% de tu ingreso — dentro del '+cp.pctI+'% saludable.</span></div>';
+      } else {
+        h+='<div class="sema a"><span class="dot"></span><span>⚠️ <b>Va apretado:</b> son '+peso(cp.metaQuincena)+' por quincena, el '+cp.pctDeIngreso+'% de tu ingreso — arriba del '+cp.pctI+'% saludable. Considera recortar gastos o usar un poco más de aguinaldo.</span></div>';
+      }
+    }
+    return h;
+  },
+
+  startReto(){
+    let total=0; RUBROS.forEach(r=>total+=(this.tmp.montos[r.k]||0));
+    if(total<=0) return;
+    const prevSem=(this.st&&this.st.semanas)?this.st.semanas:[{},{},{},{}];
+    this.st={ plan:{montos:Object.assign({},this.tmp.montos), ingQ:this.tmp.ingQ, agui:this.tmp.agui, pctA:this.tmp.pctA, pctI:this.tmp.pctI}, started:true, semanas:prevSem };
+    this.save(); this.renderDash(); this.show('dash');
+  },
+
+  reiniciar(){
+    if(confirm('¿Seguro que quieres reiniciar? Se borrará tu plan y tu avance.')){
+      try{localStorage.removeItem(KEY);}catch(e){}
+      this.st=null; this.tmp={montos:{},ingQ:0,agui:0,pctA:50,pctI:30};
+      this.show('welcome');
+    }
+  },
+
+  renderDash(){
+    const cp=computePlan(this.st.plan);
+    const box=document.getElementById('weeks'); box.innerHTML='';
+    for(let i=0;i<4;i++){
+      const w=this.st.semanas[i]||{};
+      const card=document.createElement('div');
+      card.className='wk'; card.id='wk-'+i;
+      card.innerHTML=
+        '<div class="wleft"><div class="wn">Semana '+(i+1)+'</div>'+
+          '<div class="wmeta">Meta: apartar '+peso(cp.metaSemanal)+'</div>'+
+          '<div class="wres" id="wres-'+i+'"></div></div>'+
+        '<div class="win"><span>$</span><input id="w-'+i+'" inputmode="numeric" placeholder="0" value="'+(w.res?w.res.toLocaleString('es-MX'):'')+'"></div>';
+      box.appendChild(card);
+      document.getElementById('w-'+i).addEventListener('input',e=>this.onInput(i,e.target));
+    }
+    this.refresh();
+  },
+  onInput(i,el){
+    const v=onlyNum(el.value); el.value=v?v.toLocaleString('es-MX'):'';
+    if(!this.st.semanas[i]) this.st.semanas[i]={};
+    this.st.semanas[i].res=v; this.save(); this.refresh();
+  },
+  refresh(){
+    const cp=computePlan(this.st.plan);
+    const metaReto=cp.metaSemanal*4;
+    let acum=0, cumplidas=0, racha=0, rachaOn=true, curWeek=1;
+    this.st.semanas.forEach((w,i)=>{
+      w=w||{}; const r=w.res||0; acum+=r;
+      const cumple=cp.metaSemanal>0 && r>=cp.metaSemanal;
+      const tiene=r>0;
+      if(cumple) cumplidas++;
+      if(rachaOn && cumple) racha++; else if(tiene) rachaOn=false;
+      if(tiene) curWeek=Math.min(4,i+2);
+      const res=document.getElementById('wres-'+i);
+      const cardEl=document.getElementById('wk-'+i);
+      if(!tiene){ res.className='wres'; cardEl.className='wk'; }
+      else{
+        cardEl.className='wk done';
+        if(cp.metaSemanal>0 && cumple){ res.className='wres show ok'; res.textContent='✓ Cumpliste ('+peso(r)+')'; }
+        else if(cp.metaSemanal>0){ res.className='wres show no'; res.textContent='○ Apartaste '+peso(r)+' de '+peso(cp.metaSemanal); }
+        else { res.className='wres show ok'; res.textContent='✓ Apartaste '+peso(r); }
+      }
+    });
+    document.getElementById('acumVal').textContent=peso(acum);
+    document.getElementById('metaRetoVal').textContent=peso(metaReto);
+    document.getElementById('acumBar').style.width=(metaReto>0?Math.min(100,acum/metaReto*100):0)+'%';
+    document.getElementById('metaSemVal').textContent=peso(cp.metaSemanal);
+    document.getElementById('cumpVal').textContent=cumplidas+'/4';
+    document.getElementById('rachaVal').textContent=racha;
+    document.getElementById('curWeek').textContent=curWeek;
+    document.getElementById('bigNote').textContent='Vas armando tu fondo de '+peso(cp.faltante)+' para diciembre';
+    const closing=document.getElementById('closing');
+    if(cumplidas===4){ closing.textContent='🎉 ¡Completaste el reto! Apartaste '+peso(acum)+'. Sigue el ritmo hasta Navidad y llegas con todo.'; }
+    else if(acum>0){ closing.textContent='¡Vas bien! Llevas '+peso(acum)+' apartados. Cada semana te acerca a tu meta.'; }
+    else { closing.textContent='«Lo que se mide, se mejora. Aparta tu primera semana y arranca tu racha.»'; }
+  },
+};
+app.init();
+</script>
+</body>
+</html>
